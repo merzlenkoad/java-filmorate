@@ -36,7 +36,11 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.createUser(user));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 
     @Test
@@ -47,7 +51,11 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.createUser(user));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 
     @Test
@@ -58,7 +66,11 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.createUser(user));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 
     @Test
@@ -81,7 +93,11 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.createUser(user));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 
     @Test
@@ -109,7 +125,11 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.updateUser(updateUser));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 
     @Test
@@ -123,7 +143,11 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.updateUser(updateUser));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 
     @Test
@@ -137,7 +161,11 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.updateUser(updateUser));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 
     @Test
@@ -166,6 +194,10 @@ class UserControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> userController.updateUser(updateUser));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception!" +
+                "The email cannot be empty and must contain the character @;\n" +
+                "The login cannot be empty and contain spaces;\n" +
+                "The name to display can be empty — in this case, the login will be used;\n" +
+                "The date of birth cannot be in the future.", e.getMessage());
     }
 }

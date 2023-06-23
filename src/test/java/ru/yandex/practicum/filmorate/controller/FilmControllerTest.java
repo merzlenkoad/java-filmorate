@@ -38,7 +38,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.createFilm(film));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -52,7 +55,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.createFilm(film));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -63,7 +69,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.createFilm(film));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -74,7 +83,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.createFilm(film));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -103,7 +115,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.updateFilm(updateFilm));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -121,7 +136,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.updateFilm(updateFilm));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -136,7 +154,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.updateFilm(updateFilm));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -151,7 +172,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.updateFilm(updateFilm));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test
@@ -166,7 +190,10 @@ class FilmControllerTest {
         final ValidationException e = Assertions.assertThrows(ValidationException.class,
                 () -> filmController.updateFilm(updateFilm));
 
-        Assertions.assertEquals("Validation Exception!", e.getMessage());
+        Assertions.assertEquals("Validation Exception! The name cannot be empty;\n" +
+                "The maximum length of the description is 200 characters;\n" +
+                "Release date — no earlier than December 28, 1895;\n" +
+                "The duration of the film should be positive.", e.getMessage());
     }
 
     @Test

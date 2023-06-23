@@ -3,18 +3,19 @@ package ru.yandex.practicum.filmorate.controller;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static ru.yandex.practicum.filmorate.controller.Constants.ACCEPT_RELEASE_DATE;
 
 @RestController
 @RequestMapping("/films")
 public class FilmController {
 
     private int generatedId = 1;
-    private Map<Integer, Film> films = new HashMap<>();
+    private final Map<Integer, Film> films = new HashMap<>();
 
     @PostMapping
     public Film createFilm(@RequestBody Film film) {
@@ -28,7 +29,7 @@ public class FilmController {
     public Film updateFilm(@RequestBody Film film) {
         isValid(film);
         if (!films.containsKey(film.getId())) {
-            throw new ValidationException("Validation Exception!");
+            throw new ValidationException("Validation Exception!There is no such film.");
         }
         films.remove(film.getId());
         films.put(film.getId(), film);
@@ -41,13 +42,15 @@ public class FilmController {
     }
 
     public void isValid(Film film) {
-        LocalDate acceptReleaseDate = LocalDate.parse("1895-12-28");
 
         if (film.getName() == null || film.getName().isEmpty()
                 || film.getDescription().length() > 200
                 || film.getDuration() < 0
-                || film.getReleaseDate().isBefore(acceptReleaseDate)) {
-            throw new ValidationException("Validation Exception!");
+                || film.getReleaseDate().isBefore(ACCEPT_RELEASE_DATE)) {
+            throw new ValidationException("Validation Exception! The name cannot be empty;\n" +
+                    "The maximum length of the description is 200 characters;\n" +
+                    "Release date — no earlier than December 28, 1895;\n" +
+                    "The duration of the film should be positive.");
         }
     }
 

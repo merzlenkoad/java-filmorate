@@ -14,7 +14,7 @@ import java.util.Map;
 public class UserController {
 
     private int generatedId = 1;
-    private Map<Integer, User> users = new HashMap<>();
+    private final Map<Integer, User> users = new HashMap<>();
 
     @PostMapping
     public User createUser(@RequestBody User user) {
@@ -28,7 +28,7 @@ public class UserController {
     public User updateUser(@RequestBody User user) {
         isValid(user);
         if (!users.containsKey(user.getId())) {
-            throw new ValidationException("Validation Exception!");
+            throw new ValidationException("Validation Exception! There is no such user.");
         }
         users.remove(user.getId());
         users.put(user.getId(), user);
@@ -46,7 +46,11 @@ public class UserController {
         if ((user.getLogin().contains(" ") || user.getLogin().isBlank())
                 || (user.getEmail().isBlank()) || !(user.getEmail().contains("@"))
                 || (user.getBirthday().compareTo(currentTime) > 0)) {
-            throw new ValidationException("Validation Exception!");
+            throw new ValidationException("Validation Exception!"
+                    + "The email cannot be empty and must contain the character @;\n" +
+                    "The login cannot be empty and contain spaces;\n" +
+                    "The name to display can be empty — in this case, the login will be used;\n" +
+                    "The date of birth cannot be in the future.");
         } else if (user.getName() == null || user.getName().isBlank()) {
             String newName = user.getLogin();
             user.setName(newName);
