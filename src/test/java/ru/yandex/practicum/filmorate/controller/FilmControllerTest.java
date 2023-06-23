@@ -56,7 +56,7 @@ class FilmControllerTest {
     }
 
     @Test
-    public void createFilmReleaseDateMin(){
+    public void createFilmReleaseDateMin() {
         Film film = new Film("name","description",
                 LocalDate.of(1700,12,05),150L);
 
