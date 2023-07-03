@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class InMemoryUserService implements UserService{
+public class InMemoryUserService implements UserService {
 
     public final UserStorage userStorage;
 
