@@ -1,7 +1,16 @@
 package ru.yandex.practicum.filmorate.controller;
 
 public class NotFoundException extends RuntimeException {
-    public NotFoundException(String message) {
+
+    final int id;
+
+    public NotFoundException(String message, int id) {
         super(message);
+        this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

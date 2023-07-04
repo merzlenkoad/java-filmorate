@@ -29,7 +29,7 @@ public class InMemoryFilmService implements FilmService {
     @Override
     public Film updateFilm(Film film) {
         isValid(film);
-        filmExists(film.getId());
+        checkFilmExists(film.getId());
         return filmStorage.updateFilm(film);
     }
 
@@ -41,20 +41,20 @@ public class InMemoryFilmService implements FilmService {
 
     @Override
     public Film getFilm(Integer id) {
-        filmExists(id);
+        checkFilmExists(id);
         return filmStorage.getFilms().get(id);
     }
 
     @Override
     public void addLike(Integer filmId, Integer userId) {
-        filmExists(filmId);
-        filmStorage.getFilms().get(filmId).setLikes(userId);
+        checkFilmExists(filmId);
+        filmStorage.getFilms().get(filmId).addLike(userId);
     }
 
     @Override
     public void deleteLike(Integer filmId, Integer userId) {
-        filmExists(filmId);
-        userLikeExists(filmId, userId);
+        checkFilmExists(filmId);
+        checkUserLikeExists(filmId, userId);
 
         filmStorage.getFilms().get(filmId).getLikes().remove(userId);
     }
@@ -110,15 +110,15 @@ public class InMemoryFilmService implements FilmService {
         }
     }
 
-    public void filmExists(Integer id) {
+    public void checkFilmExists(Integer id) {
         if (!filmStorage.getFilms().containsKey(id)) {
-            throw new NotFoundException("Validation Exception!There is no such film.");
+            throw new NotFoundException("Validation Exception!There is no such film with id: ", id);
         }
     }
 
-    public void userLikeExists(Integer filmId, Integer userId) {
+    public void checkUserLikeExists(Integer filmId, Integer userId) {
         if (!filmStorage.getFilms().get(filmId).getLikes().contains(userId)) {
-            throw new NotFoundException("Validation Exception!There is no such Like.");
+            throw new NotFoundException("Validation Exception!There is no such Like with User: ", filmId);
         }
     }
 }

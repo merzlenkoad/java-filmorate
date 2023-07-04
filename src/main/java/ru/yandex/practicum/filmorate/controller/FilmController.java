@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/films")
@@ -52,7 +53,7 @@ public class FilmController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public boolean exceptionHandler(final NotFoundException e) {
-        return false;
+    public Map<String, Integer> exceptionHandler(final NotFoundException e) {
+        return Map.of("User is not found",e.id);
     }
 }

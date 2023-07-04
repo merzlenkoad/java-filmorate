@@ -28,7 +28,7 @@ public class InMemoryUserService implements UserService {
     @Override
     public User updateUser(User user) {
         isValid(user);
-        userExists(user.getId());
+        checkUserExists(user.getId());
         return userStorage.updateUser(user);
     }
 
@@ -40,15 +40,15 @@ public class InMemoryUserService implements UserService {
 
     @Override
     public User getUser(Integer id) {
-        userExists(id);
+        checkUserExists(id);
         return userStorage.getUsers().get(id);
     }
 
     @Override
     public void addFriend(Integer id, Integer otherUserId) {
 
-        userExists(id);
-        userExists(otherUserId);
+        checkUserExists(id);
+        checkUserExists(otherUserId);
 
         userStorage.getUsers().get(id).setFriends(otherUserId);
         userStorage.getUsers().get(otherUserId).setFriends(id);
@@ -56,15 +56,15 @@ public class InMemoryUserService implements UserService {
 
     @Override
     public void removeFriend(Integer id, Integer otherUserId) {
-        userExists(id);
-        userExists(otherUserId);
+        checkUserExists(id);
+        checkUserExists(otherUserId);
 
         userStorage.getUsers().get(id).getFriends().remove(otherUserId);
     }
 
     @Override
     public List<User> friendsList(Integer id) {
-        userExists(id);
+        checkUserExists(id);
 
         User actualUser = userStorage.getUsers().get(id);
         List<User> friendsList = new ArrayList<>();
@@ -77,8 +77,8 @@ public class InMemoryUserService implements UserService {
 
     @Override
     public List<User> mutualFriendsList(Integer id, Integer otherUserId) {
-        userExists(id);
-        userExists(otherUserId);
+        checkUserExists(id);
+        checkUserExists(otherUserId);
 
 
         User actualUser = userStorage.getUsers().get(id);
@@ -114,9 +114,9 @@ public class InMemoryUserService implements UserService {
         }
     }
 
-    public void userExists(Integer id) {
+    public void checkUserExists(Integer id) {
         if (!userStorage.getUsers().containsKey(id)) {
-            throw new NotFoundException("Validation Exception! There is no such user.");
+            throw new NotFoundException("Validation Exception! There is no such user with id: ", id);
         }
     }
 
