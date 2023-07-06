@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.InMemoryFilmService;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -12,10 +14,14 @@ import java.util.List;
 class FilmControllerTest {
 
     private FilmController filmController;
+    private InMemoryFilmService filmService;
+    private InMemoryFilmStorage filmStorage;
 
     @BeforeEach
     private void setUP() {
-        filmController = new FilmController();
+        filmStorage = new InMemoryFilmStorage();
+        filmService = new InMemoryFilmService(filmStorage);
+        filmController = new FilmController(filmService);
     }
 
     @Test
@@ -27,7 +33,7 @@ class FilmControllerTest {
         Film expectedFilm = new Film(1,"name", "description",
                 LocalDate.of(1996,12,05), 150L);
 
-        Assertions.assertEquals(expectedFilm, filmController.getFilmById(1));
+        Assertions.assertEquals(expectedFilm, filmService.getFilm(1));
     }
 
     @Test
@@ -100,7 +106,7 @@ class FilmControllerTest {
         Film expectedFilm = new Film(1,"name", "description",
                 LocalDate.of(1996,12,05), 100L);
 
-        Assertions.assertEquals(expectedFilm, filmController.getFilmById(1));
+        Assertions.assertEquals(expectedFilm, filmService.getFilm(1));
     }
 
     @Test
@@ -206,7 +212,7 @@ class FilmControllerTest {
                 LocalDate.of(1996,12,06),100L);
         filmController.createFilm(film);
 
-        List<Film> expectedFilms = Arrays.asList(filmController.getFilmById(1),filmController.getFilmById(2));
+        List<Film> expectedFilms = Arrays.asList(filmService.getFilm(1),filmService.getFilm(2));
 
         Assertions.assertEquals(expectedFilms, filmController.getAllFilms());
     }

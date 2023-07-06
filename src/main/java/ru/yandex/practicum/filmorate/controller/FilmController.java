@@ -1,60 +1,61 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ru.yandex.practicum.filmorate.controller.Constants.ACCEPT_RELEASE_DATE;
-
 @RestController
 @RequestMapping("/films")
+@AllArgsConstructor
+@Slf4j
 public class FilmController {
 
-    private int generatedId = 1;
-    private final Map<Integer, Film> films = new HashMap<>();
+    private final FilmService filmService;
 
     @PostMapping
     public Film createFilm(@RequestBody Film film) {
-        isValid(film);
-        film.setId(generatedId++);
-        films.put(film.getId(), film);
-        return film;
+        return filmService.addFilm(film);
     }
 
     @PutMapping
     public Film updateFilm(@RequestBody Film film) {
-        isValid(film);
-        if (!films.containsKey(film.getId())) {
-            throw new ValidationException("Validation Exception!There is no such film.");
-        }
-        films.remove(film.getId());
-        films.put(film.getId(), film);
-        return film;
+        return filmService.updateFilm(film);
     }
 
     @GetMapping
     public List<Film> getAllFilms() {
-        return new ArrayList<>(films.values());
+        return filmService.getAll();
     }
 
-    public void isValid(Film film) {
-
-        if (film.getName() == null || film.getName().isEmpty()
-                || film.getDescription().length() > 200
-                || film.getDuration() < 0
-                || film.getReleaseDate().isBefore(ACCEPT_RELEASE_DATE)) {
-            throw new ValidationException("Validation Exception! The name cannot be empty;\n" +
-                    "The maximum length of the description is 200 characters;\n" +
-                    "Release date — no earlier than December 28, 1895;\n" +
-                    "The duration of the film should be positive.");
-        }
+    @GetMapping("/{id}")
+    public Film getFilm(@PathVariable Integer id) {
+        return filmService.getFilm(id);
     }
 
-    public Film getFilmById(int id) {
-        return films.get(id);
+    @PutMapping("/{id}/like/{userId}")
+    public void addLike(@PathVariable Integer id, @PathVariable Integer userId) {
+        filmService.addLike(id, userId);
+    }
+
+    @DeleteMapping("/{id}/like/{userId}")
+    public void deleteLike(@PathVariable Integer id, @PathVariable Integer userId) {
+        filmService.deleteLike(id, userId);
+    }
+
+    @GetMapping("/popular")
+    public List<Film> getPopularFilms(@RequestParam(defaultValue = "10") String count) {
+        return filmService.getPopularFilms(count);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, Integer> exceptionHandler(final NotFoundException e) {
+        return Map.of("User is not found",e.id);
     }
 }

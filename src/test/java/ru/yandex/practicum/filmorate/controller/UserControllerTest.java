@@ -4,16 +4,22 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.InMemoryUserService;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.time.LocalDate;
 
 class UserControllerTest {
 
     private UserController userController;
+    private InMemoryUserService userService;
+    private InMemoryUserStorage userStorage;
 
     @BeforeEach
     private void setUp() {
-        userController = new UserController();
+        userStorage = new InMemoryUserStorage();
+        userService = new InMemoryUserService(userStorage);
+        userController = new UserController(userService);
     }
 
     @Test
@@ -25,7 +31,7 @@ class UserControllerTest {
         User exceptedUser = new User(1,"email@yandex.ru", "login", "name",
                 LocalDate.of(1996,12,05));
 
-        Assertions.assertEquals(exceptedUser, userController.getUserById(1));
+        Assertions.assertEquals(exceptedUser, userService.getUserById(1));
     }
 
     @Test
@@ -82,7 +88,7 @@ class UserControllerTest {
         User exceptedUser = new User(1,"email@yandex.ru", "login", "login",
                 LocalDate.of(1996,12,05));
 
-        Assertions.assertEquals(exceptedUser, userController.getUserById(1));
+        Assertions.assertEquals(exceptedUser, userService.getUserById(1));
     }
 
     @Test
@@ -111,7 +117,7 @@ class UserControllerTest {
         User exceptedUser = new User(1,"email@yandex.ru", "login", "name",
                 LocalDate.of(1990,12,05));
 
-        Assertions.assertEquals(exceptedUser, userController.getUserById(1));
+        Assertions.assertEquals(exceptedUser, userService.getUserById(1));
     }
 
     @Test
@@ -180,7 +186,7 @@ class UserControllerTest {
         User exceptedUser = new User(1,"email@yandex.ru", "login", "login",
                 LocalDate.of(1996,12,05));
 
-        Assertions.assertEquals(exceptedUser, userController.getUserById(1));
+        Assertions.assertEquals(exceptedUser, userService.getUserById(1));
     }
 
     @Test
@@ -200,4 +206,5 @@ class UserControllerTest {
                 "The name to display can be empty — in this case, the login will be used;\n" +
                 "The date of birth cannot be in the future.", e.getMessage());
     }
+
 }
