@@ -2,9 +2,9 @@ package ru.yandex.practicum.filmorate.model;
 
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Getter
@@ -13,16 +13,16 @@ import java.util.Set;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
 
-    @NotNull
     private Integer id;
     private String email;
     private String login;
     private String name;
     private LocalDate birthday;
     @Setter(AccessLevel.NONE)
-    private Set<Integer> friends = new HashSet<>();
+    private Set<Integer> friends;
 
     public User(String email, String login, String name, LocalDate birthday) {
         this.email = email;
@@ -39,7 +39,12 @@ public class User {
         this.birthday = birthday;
     }
 
-    public void setFriends(Integer id) {
-        friends.add(id);
+    public Map<String, Object> toMap() {
+        Map<String, Object> values = new HashMap<>();
+        values.put("email", email);
+        values.put("login", login);
+        values.put("name", name);
+        values.put("birthday", birthday);
+        return values;
     }
 }
