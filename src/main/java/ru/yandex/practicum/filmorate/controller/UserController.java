@@ -2,66 +2,75 @@ package ru.yandex.practicum.filmorate.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.service.user.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-@Slf4j
 public class UserController {
 
-    private final UserService userService;
-
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.addUser(user);
-    }
-
-    @PutMapping
-    public User updateUser(@RequestBody User user) {
-        return userService.updateUser(user);
-    }
+    private UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAll();
+    public List<User> getUsers() {
+        log.info("GET - запрос: /users - получение списка пользователей");
+        return userService.getUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Integer id) {
-        return userService.getUser(id);
+    public User getUserById(@PathVariable Integer id) {
+        log.info("GET - запрос: /users/{id} - получение пользователя по id: " + id);
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("/{id}/friends")
+    public List<User> getFriends(@PathVariable Integer id) {
+        log.info("GET - запрос: /users/{id}/friends - получение списка друзей пользователя по id: " + id);
+        return userService.getFriends(id);
+    }
+
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public List<User> getCommonFriends(@PathVariable Integer id, @PathVariable Integer otherId) {
+        log.info("GET - запрос: /users/{id}/friends/common/{otherId} - получение общих друзей userId: " + id +
+                "и otherId: " + otherId);
+        return userService.getCommonFriends(id, otherId);
     }
 
     @PutMapping("/{id}/friends/{friendId}")
     public void addFriend(@PathVariable Integer id, @PathVariable Integer friendId) {
+        log.info("PUT - запрос: /users/{id}/friends/{friendId} - добавление друга. пользователь id: " + id +
+                " друг id: " + friendId);
         userService.addFriend(id, friendId);
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
     public void deleteFriend(@PathVariable Integer id, @PathVariable Integer friendId) {
-        userService.removeFriend(id, friendId);
+        log.info("DELETE - запрос: /users/{id}/friends/{friendId} - удаление друга. пользователь id: " + id +
+                " друг id: " + friendId);
+        userService.deleteFriend(id, friendId);
     }
 
-    @GetMapping("/{id}/friends")
-    public List<User> friendsList(@PathVariable Integer id) {
-       return userService.friendsList(id);
+    @PostMapping
+    public User create(@Valid @RequestBody User user) {
+        log.info("POST - запрос: /users - добавление пользователя");
+        return userService.create(user);
     }
 
-    @GetMapping("/{id}/friends/common/{otherId}")
-    public List<User> mutualFriendsList(@PathVariable Integer id, @PathVariable Integer otherId) {
-        return userService.mutualFriendsList(id, otherId);
+    @PutMapping
+    public User update(@Valid @RequestBody User user) {
+        log.info("PUT - запрос: /users - обновление пользователя");
+        return userService.update(user);
     }
 
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, Integer> exceptionHandler(final NotFoundException e) {
-        return Map.of("User is not found.", e.id);
+    @DeleteMapping("/{id}")
+    public  User delete(@PathVariable Integer id) {
+        log.info("DELETE - запрос: /users/{id} - удаление пользователя по id" + id);
+        return userService.delete(id);
     }
 }
