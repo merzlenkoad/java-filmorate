@@ -18,11 +18,9 @@ public class FriendDbStorage implements FriendStorage {
     public void addFriend(Integer userId, Integer friendId) {
 
         SqlRowSet userIdCheck = jdbcTemplate.queryForRowSet("SELECT * FROM users" +
-                " WHERE user_id = ?", userId);
-        SqlRowSet friendIdCheck = jdbcTemplate.queryForRowSet("SELECT * FROM users" +
-                " WHERE user_id = ?", friendId);
+                " WHERE user_id = ? OR user_id = ?", userId, friendId);
 
-        if (userIdCheck.first() && friendIdCheck.first()) {
+        if (userIdCheck.first() && userIdCheck.next()) {
             jdbcTemplate.update("INSERT INTO friends VALUES (?, ?)", userId, friendId);
         } else {
             throw new NotFoundException("No such friends have been found", userId);

@@ -6,7 +6,6 @@ import ru.yandex.practicum.filmorate.exeption.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.like.LikeStorage;
-import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import static ru.yandex.practicum.filmorate.controller.Constants.ACCEPT_RELEASE_
 @AllArgsConstructor
 public class FilmServiceImpl implements FilmService {
     private FilmStorage filmStorage;
-    private UserStorage userStorage;
     private LikeStorage likeStorage;
 
     @Override

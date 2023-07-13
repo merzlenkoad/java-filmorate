@@ -9,5 +9,4 @@ public class Mpa {
 
     private Integer id;
     private String name;
-
 }

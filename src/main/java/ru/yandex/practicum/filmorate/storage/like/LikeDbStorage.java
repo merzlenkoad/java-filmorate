@@ -17,8 +17,8 @@ import java.util.List;
 public class LikeDbStorage implements LikeStorage {
 
     private  final JdbcTemplate jdbcTemplate;
-    private MpaService mpaService;
-    private GenreService genreService;
+    private final MpaService mpaService;
+    private final GenreService genreService;
 
     @Override
     public void addLike(Integer filmId, Integer userId) {

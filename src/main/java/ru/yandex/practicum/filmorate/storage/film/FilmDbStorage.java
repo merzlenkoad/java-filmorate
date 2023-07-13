@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class FilmDbStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
-    private MpaService mpaService;
-    private GenreService genreService;
-    private LikeStorage likeStorage;
+    private final MpaService mpaService;
+    private final GenreService genreService;
+    private final LikeStorage likeStorage;
 
 
     @Override
@@ -46,6 +46,7 @@ public class FilmDbStorage implements FilmStorage {
                 genre.setName(genreService.getGenreById(genre.getId()).getName());
             }
             genreService.putGenres(film);
+
         }
         return film;
     }
